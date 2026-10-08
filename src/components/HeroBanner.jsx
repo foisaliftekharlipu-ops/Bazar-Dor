@@ -22,7 +22,7 @@ export default function HeroBanner() {
           <div className="md:col-span-7 lg:col-span-8 flex flex-col items-start space-y-3 sm:space-y-4">
             {/* Eyebrow badge */}
             <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-[#d7eadf] text-[#047f39] text-xs sm:text-sm font-semibold tracking-wide">
-              <span>{banglaDate}</span>
+              <span suppressHydrationWarning>{banglaDate}</span>
             </div>
 
             {/* Main Heading */}

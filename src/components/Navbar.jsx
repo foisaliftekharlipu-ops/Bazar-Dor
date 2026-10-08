@@ -29,7 +29,7 @@ export default async function Navbar() {
               <span className="text-lg sm:text-xl font-extrabold text-gray-900 tracking-tight leading-tight">
                 বাজার দর
               </span>
-              <span className="text-xs sm:text-sm text-gray-500 font-medium">
+              <span suppressHydrationWarning className="text-xs sm:text-sm text-gray-500 font-medium">
                 {banglaDate}
               </span>
             </div>

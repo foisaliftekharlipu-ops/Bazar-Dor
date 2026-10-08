@@ -93,18 +93,36 @@ export function getShortBengaliUnit(unit) {
 
 /**
  * Generates formatted dynamic Bangla date matching Figma format: "বুধবার, ৭ অক্টোবর, ২০২৬"
+ * Formatted in Asia/Dhaka timezone to ensure consistent server/client hydration.
  */
 export function getBanglaDate(date = new Date()) {
-  const days = [
-    "রবিবার",
-    "সোমবার",
-    "মঙ্গলবার",
-    "বুধবার",
-    "বৃহস্পতিবার",
-    "শুক্রবার",
-    "শনিবার",
-  ];
-  const months = [
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Dhaka",
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    weekday: "long",
+  });
+
+  const parts = formatter.formatToParts(date);
+  const getPart = (type) => parts.find((p) => p.type === type)?.value;
+
+  const weekday = getPart("weekday");
+  const dayStr = getPart("day");
+  const monthStr = getPart("month");
+  const yearStr = getPart("year");
+
+  const dayMap = {
+    Sunday: "রবিবার",
+    Monday: "সোমবার",
+    Tuesday: "মঙ্গলবার",
+    Wednesday: "বুধবার",
+    Thursday: "বৃহস্পতিবার",
+    Friday: "শুক্রবার",
+    Saturday: "শনিবার",
+  };
+
+  const monthNames = [
     "জানুয়ারি",
     "ফেব্রুয়ারি",
     "মার্চ",
@@ -119,10 +137,10 @@ export function getBanglaDate(date = new Date()) {
     "ডিসেম্বর",
   ];
 
-  const dayName = days[date.getDay()];
-  const day = toBengaliNumber(date.getDate(), { useComma: false });
-  const monthName = months[date.getMonth()];
-  const year = toBengaliNumber(date.getFullYear(), { useComma: false });
+  const dayName = dayMap[weekday] || "শুক্রবার";
+  const day = toBengaliNumber(parseInt(dayStr, 10), { useComma: false });
+  const monthName = monthNames[parseInt(monthStr, 10) - 1] || "অক্টোবর";
+  const year = toBengaliNumber(parseInt(yearStr, 10), { useComma: false });
 
   return `${dayName}, ${day} ${monthName}, ${year}`;
 }
