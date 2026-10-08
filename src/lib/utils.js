@@ -1,9 +1,9 @@
-// Bengali digits lookup
+// Bengali numerals lookup array
 const bengaliDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
 
 /**
  * Converts English numbers/strings to Bengali numeral string.
- * Supports decimal numbers and formatting with commas.
+ * Supports decimal numbers and optional comma formatting.
  */
 export function toBengaliNumber(number, { decimals = null, useComma = true } = {}) {
   if (number === null || number === undefined || isNaN(Number(number))) {
@@ -34,7 +34,7 @@ export function toBengaliNumber(number, { decimals = null, useComma = true } = {
 }
 
 /**
- * Maps API unit string to localized Bengali unit phrase (e.g. প্রতি কেজি)
+ * Maps API unit string to localized Bengali unit phrase (e.g., প্রতি কেজি)
  */
 export function getBengaliUnit(unit) {
   if (!unit) return "প্রতি একক";
@@ -63,7 +63,7 @@ export function getBengaliUnit(unit) {
 }
 
 /**
- * Maps API unit string to short unit (e.g. কেজি, লিটার)
+ * Maps API unit string to short unit (e.g., কেজি, লিটার)
  */
 export function getShortBengaliUnit(unit) {
   if (!unit) return "একক";
@@ -92,7 +92,7 @@ export function getShortBengaliUnit(unit) {
 }
 
 /**
- * Generates formatted dynamic Bangla date matching Figma: "মঙ্গলবার, ৬ অক্টোবর, ২০২৬"
+ * Generates formatted dynamic Bangla date matching Figma format: "বুধবার, ৭ অক্টোবর, ২০২৬"
  */
 export function getBanglaDate(date = new Date()) {
   const days = [

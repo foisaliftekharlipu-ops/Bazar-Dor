@@ -14,17 +14,17 @@ export default async function Navbar() {
 
   return (
     <header className="w-full bg-white sticky top-0 z-50 shadow-2xs">
-      {/* Top Row: Logo & Bangla Date (Left) | Auth Buttons (Right) with Full-Width Bottom Border */}
+      {/* Top Row: Logo & Date (Left) | Auth Buttons (Right) */}
       <div className="w-full border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between py-2 sm:py-2.5">
-          {/* Logo & Bangla Date */}
+          {/* Logo & Dynamic Bangla Date */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            {/* Compact Green rounded logo box */}
+            {/* Logo container */}
             <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#047f39] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform shrink-0 p-1.5">
               <img
                 src="/shopping-cart.png"
                 alt="বাজার দর"
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain brightness-0 invert"
               />
             </div>
 
@@ -44,14 +44,14 @@ export default async function Navbar() {
         </div>
       </div>
 
-      {/* Second Row: Category Links with Full-Width Container & Bottom Border */}
+      {/* Second Row: Category Links */}
       <div className="w-full border-b border-gray-200 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <CategoryNavLinks categories={categories} />
         </div>
       </div>
 
-      {/* Third Row: Price Ticker Marquee */}
+      {/* Third Row: Continuous Price Ticker */}
       <PriceTicker products={products} />
     </header>
   );

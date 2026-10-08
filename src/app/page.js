@@ -1,20 +1,65 @@
 import Navbar from "@/components/Navbar";
 import HeroBanner from "@/components/HeroBanner";
+import ProductCard from "@/components/ProductCard";
+import AllProductsSection from "@/components/AllProductsSection";
+import { getProducts, getTopRisers, getTopFallers } from "@/lib/api";
 
-export default function Home() {
+export default async function Home() {
+  const [allProducts, topRisers, topFallers] = await Promise.all([
+    getProducts(),
+    getTopRisers(6),
+    getTopFallers(6),
+  ]);
+
   return (
     <div className="min-h-screen flex flex-col bg-white text-slate-900">
-      {/* 🔝 Navbar */}
+      {/* Navbar with Live Price Ticker */}
       <Navbar />
 
-      {/* 🅱️ Hero / Banner */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 pb-16 space-y-10 sm:space-y-12">
+        {/* Hero / Banner */}
         <HeroBanner />
 
-        {/* ⚖️ সব পণ্য Anchor Target Section */}
-        <section id="সব-পণ্য" className="scroll-mt-28 my-8 pt-4">
-          <div className="border-t border-gray-100 pt-6"></div>
-        </section>
+        {/* Section A: Top 6 Risers */}
+        {topRisers.length > 0 && (
+          <section className="space-y-4">
+            <div className="flex items-center gap-2">
+              <span className="text-red-600 font-bold text-lg">▲</span>
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900">
+                আজ দাম বেড়েছে
+              </h2>
+            </div>
+
+            {/* Grid of Top 6 Risers */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+              {topRisers.map((product) => (
+                <ProductCard key={product.id || product.slug} product={product} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Section B: Top 6 Fallers */}
+        {topFallers.length > 0 && (
+          <section className="space-y-4">
+            <div className="flex items-center gap-2">
+              <span className="text-[#047f39] font-bold text-lg">▼</span>
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900">
+                আজ দাম কমেছে
+              </h2>
+            </div>
+
+            {/* Grid of Top 6 Fallers */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+              {topFallers.map((product) => (
+                <ProductCard key={product.id || product.slug} product={product} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Section C: All Products with exact scroll-mt offset and sort controls */}
+        <AllProductsSection initialProducts={allProducts} />
       </main>
     </div>
   );

@@ -5,11 +5,12 @@ import { getBanglaDate } from "@/lib/utils";
 export default function HeroBanner() {
   const banglaDate = getBanglaDate();
 
-  const handleScrollToAllProducts = (e) => {
+  const handleScrollToProducts = (e) => {
     e.preventDefault();
-    const targetElement = document.getElementById("সব-পণ্য");
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    const target = document.getElementById("সব-পণ্য");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.pushState(null, "", "#সব-পণ্য");
     }
   };
 
@@ -17,9 +18,9 @@ export default function HeroBanner() {
     <section className="w-full my-6 sm:my-8">
       <div className="bg-[#f0f4f2] rounded-3xl p-6 sm:p-10 lg:p-12 border border-gray-200/90 shadow-2xs">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center">
-          {/* Left Column: Eyebrow, Heading, Subtitle & CTA Button */}
+          {/* Left Column: Eyebrow, Heading, Subtitle and CTA button */}
           <div className="md:col-span-7 lg:col-span-8 flex flex-col items-start space-y-3 sm:space-y-4">
-            {/* Eyebrow / small text badge */}
+            {/* Eyebrow badge */}
             <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-[#d7eadf] text-[#047f39] text-xs sm:text-sm font-semibold tracking-wide">
               <span>{banglaDate}</span>
             </div>
@@ -34,15 +35,15 @@ export default function HeroBanner() {
               চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম ও মসলার দাম — বাজারভিত্তিক বিস্তারিত, গড়, সর্বনিম্ন-সর্বাধিক এবং দামের পরিবর্তন এক জায়গায়।
             </p>
 
-            {/* Primary CTA Button scrolling down to #সব-পণ্য */}
+            {/* Primary CTA button with smooth scroll */}
             <div className="pt-2 sm:pt-3">
-              <a
-                href="#সব-পণ্য"
-                onClick={handleScrollToAllProducts}
+              <button
+                type="button"
+                onClick={handleScrollToProducts}
                 className="inline-flex items-center justify-center px-6 py-2.5 sm:py-3 rounded-xl bg-[#047f39] hover:bg-[#036a2f] text-white font-semibold text-sm sm:text-base shadow-xs hover:shadow-md transition-all duration-150 cursor-pointer"
               >
                 সব পণ্য দেখুন
-              </a>
+              </button>
             </div>
           </div>
 

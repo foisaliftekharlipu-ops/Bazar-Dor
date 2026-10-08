@@ -10,7 +10,7 @@ body {
   min-height: 100vh;
 }
 
-/* Custom continuous marquee animation for price ticker - slow, smooth and readable */
+/* Custom continuous marquee animation for price ticker */
 @keyframes marquee-scroll {
   0% {
     transform: translateX(0%);

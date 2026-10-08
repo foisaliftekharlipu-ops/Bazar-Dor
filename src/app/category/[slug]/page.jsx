@@ -32,15 +32,15 @@ export default async function CategoryPage({ params }) {
   const nameBn = category?.nameBn || slug;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
-      {/* 🔝 Navbar - the active category will be highlighted in #047f39 */}
+    <div className="min-h-screen flex flex-col bg-white text-slate-900">
+      {/* 🔝 Navbar */}
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-1 space-y-6">
         {/* Category Header */}
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-[#f0f4f2] p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-emerald-50 text-2xl sm:text-3xl flex items-center justify-center border border-emerald-100 shadow-inner">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white text-2xl sm:text-3xl flex items-center justify-center border border-slate-200 shadow-2xs">
               {icon}
             </div>
             <div>
@@ -66,7 +66,6 @@ export default async function CategoryPage({ params }) {
         {products && products.length > 0 ? (
           <CategoryProductList initialProducts={products} />
         ) : (
-          /* Empty State when category has no items */
           <div className="bg-white rounded-3xl p-10 border border-slate-200 text-center space-y-4 shadow-2xs">
             <div className="text-5xl">🧺</div>
             <h2 className="text-xl font-bold text-slate-800">

@@ -1,19 +1,6 @@
 import Link from "next/link";
 import { toBengaliNumber, getShortBengaliUnit } from "@/lib/utils";
-
-// Universal icons for products to prevent broken box characters on Windows
-const productEmojiMap = {
-  ada: "🌿",
-  rosun: "🧅",
-  chal: "🍚",
-  dal: "🥜",
-  tel: "🥫",
-  sobji: "🥒",
-  mach: "🐟",
-  mangsho: "🍗",
-  "dim-dui": "🥛",
-  mosla: "🌶️",
-};
+import { getProductEmoji } from "@/lib/productEmojis";
 
 export default function PriceTicker({ products = [] }) {
   if (!products || products.length === 0) return null;
@@ -32,26 +19,13 @@ export default function PriceTicker({ products = [] }) {
             const pctBn = toBengaliNumber(pct, { decimals: 1 });
             const priceBn = toBengaliNumber(item.today);
             const shortUnit = getShortBengaliUnit(item.unit);
-
-            // Safe emoji
-            let emoji = item.image || item.categoryIcon;
-            if (item.slug === "ada" || item.nameBn?.includes("আদা")) {
-              emoji = "🌿";
-            } else if (item.category === "dal") {
-              emoji = "🥜";
-            } else if (item.category === "tel") {
-              emoji = "🥫";
-            } else if (item.category === "sobji") {
-              emoji = "🥒";
-            } else if (!emoji || emoji === "🫚" || emoji === "🫘") {
-              emoji = productEmojiMap[item.category] || "🛒";
-            }
+            const emoji = getProductEmoji(item);
 
             return (
               <Link
                 key={`${item.id}-${idx}`}
                 href={`/product/${item.slug}`}
-                className="inline-flex items-center gap-2 px-4 border-r border-gray-200 text-xs sm:text-sm text-gray-800 hover:text-[#008947] hover:bg-slate-50 transition-colors shrink-0"
+                className="inline-flex items-center gap-2 px-4 border-r border-gray-200 text-xs sm:text-sm text-gray-800 hover:text-[#047f39] hover:bg-slate-50 transition-colors shrink-0"
               >
                 <span className="text-base leading-none">{emoji}</span>
                 <span className="font-semibold text-gray-900">{item.nameBn}</span>
@@ -63,7 +37,7 @@ export default function PriceTicker({ products = [] }) {
                     isUp
                       ? "text-red-600"
                       : isDown
-                      ? "text-[#008947]"
+                      ? "text-[#047f39]"
                       : "text-gray-500"
                   }`}
                 >

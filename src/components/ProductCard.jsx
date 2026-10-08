@@ -1,22 +1,11 @@
 import Link from "next/link";
-import { toBengaliNumber, getBengaliUnit, getShortBengaliUnit } from "@/lib/utils";
-
-// Universal icon fallbacks to prevent broken box characters on Windows
-const safeEmojiMap = {
-  chal: "🍚",
-  dal: "🥜",
-  tel: "🥫",
-  sobji: "🥒",
-  mach: "🐟",
-  mangsho: "🍗",
-  "dim-dui": "🥛",
-  mosla: "🌶️",
-};
+import { toBengaliNumber, getBengaliUnit } from "@/lib/utils";
+import { getProductEmoji } from "@/lib/productEmojis";
 
 export default function ProductCard({ product }) {
   if (!product) return null;
 
-  const { slug, nameBn, image, category, categoryIcon, unit, today, change } = product;
+  const { slug, nameBn, unit, today, change } = product;
 
   const isUp = change?.dir === "up";
   const isDown = change?.dir === "down";
@@ -24,61 +13,52 @@ export default function ProductCard({ product }) {
   const pctBn = toBengaliNumber(pct, { decimals: 1 });
   const priceBn = toBengaliNumber(today);
   const unitBn = getBengaliUnit(unit);
-
-  let emoji = image || categoryIcon;
-  if (slug === "ada" || nameBn?.includes("আদা")) {
-    emoji = "🌿";
-  } else if (category === "dal") {
-    emoji = "🥜";
-  } else if (category === "tel") {
-    emoji = "🥫";
-  } else if (category === "sobji") {
-    emoji = "🥒";
-  } else if (!emoji || emoji === "🫚" || emoji === "🫘") {
-    emoji = safeEmojiMap[category] || "🛒";
-  }
+  const emoji = getProductEmoji(product);
 
   return (
     <Link
       href={`/product/${slug}`}
-      className="group relative flex flex-col justify-between bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 hover:border-emerald-500/50 shadow-xs hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
+      className="group flex flex-col justify-between bg-white rounded-2xl p-4 sm:p-5 border border-gray-200/90 hover:border-emerald-500/60 shadow-2xs hover:shadow-md transition-all duration-150 overflow-hidden"
     >
-      {/* Top Header: Emoji + Change Badge */}
-      <div className="flex items-start justify-between gap-2">
-        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-2xl sm:text-3xl group-hover:scale-105 transition-all duration-200 shadow-inner">
+      {/* Top Section: Emoji & Name with Unit */}
+      <div className="flex items-start gap-3">
+        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition-transform">
           {emoji}
         </div>
+        <div className="flex flex-col min-w-0">
+          <h3 className="text-sm sm:text-base font-bold text-gray-900 group-hover:text-[#047f39] transition-colors truncate">
+            {nameBn}
+          </h3>
+          <span className="text-xs text-gray-500 font-medium mt-0.5">
+            {unitBn}
+          </span>
+        </div>
+      </div>
 
+      {/* Bottom Section: Price & Change Indicator */}
+      <div className="mt-4 pt-3 border-t border-gray-100 flex items-end justify-between">
+        <div className="flex flex-col">
+          <span className="text-[11px] text-gray-500 font-medium">আজকের দাম</span>
+          <div className="flex items-baseline gap-1 mt-0.5">
+            <span className="text-base sm:text-lg font-extrabold text-gray-900 group-hover:text-[#047f39] transition-colors">
+              {priceBn}
+            </span>
+            <span className="text-xs font-semibold text-gray-600">টাকা</span>
+          </div>
+        </div>
+
+        {/* Change Badge */}
         <div
-          className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition-colors ${
+          className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold ${
             isUp
-              ? "bg-rose-50 text-rose-700 border border-rose-200"
+              ? "bg-red-50 text-red-600 border border-red-200"
               : isDown
-              ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-              : "bg-slate-100 text-slate-600 border border-slate-200"
+              ? "bg-emerald-50 text-[#047f39] border border-emerald-200"
+              : "bg-gray-100 text-gray-500 border border-gray-200"
           }`}
         >
           <span>{isUp ? "▲" : isDown ? "▼" : "—"}</span>
           <span>{pctBn}%</span>
-        </div>
-      </div>
-
-      {/* Middle: Name & Unit */}
-      <div className="mt-4">
-        <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-[#047f39] transition-colors line-clamp-1">
-          {nameBn}
-        </h3>
-        <p className="text-xs font-medium text-slate-500 mt-0.5">{unitBn}</p>
-      </div>
-
-      {/* Bottom: Price Row */}
-      <div className="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
-        <span className="text-xs text-slate-500 font-medium">আজকের দাম</span>
-        <div className="flex items-baseline gap-1">
-          <span className="text-lg sm:text-xl font-extrabold text-slate-900 group-hover:text-[#047f39] transition-colors">
-            {priceBn}
-          </span>
-          <span className="text-xs font-semibold text-slate-600">টাকা</span>
         </div>
       </div>
     </Link>
