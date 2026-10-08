@@ -1,8 +1,19 @@
 "use client";
 
-import { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
+import { Toaster, useToasterStore, toast } from "react-hot-toast";
 
 export default function ToastProvider() {
+  const { toasts } = useToasterStore();
+
+  // Enforce strictly at most 1 visible toast at a time
+  useEffect(() => {
+    toasts
+      .filter((t) => t.visible)
+      .filter((_, i) => i >= 1)
+      .forEach((t) => toast.dismiss(t.id));
+  }, [toasts]);
+
   return (
     <Toaster
       position="top-center"

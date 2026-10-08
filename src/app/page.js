@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroBanner from "@/components/HeroBanner";
 import ProductCard from "@/components/ProductCard";
 import AllProductsSection from "@/components/AllProductsSection";
+import Footer from "@/components/Footer";
 import { getProducts, getTopRisers, getTopFallers } from "@/lib/api";
 
 export default async function Home() {
@@ -16,7 +17,7 @@ export default async function Home() {
       {/* Navbar with Live Price Ticker */}
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 pb-16 space-y-10 sm:space-y-12">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 pb-16 space-y-10 sm:space-y-12">
         {/* Hero / Banner */}
         <HeroBanner />
 
@@ -58,9 +59,12 @@ export default async function Home() {
           </section>
         )}
 
-        {/* Section C: All Products with exact scroll-mt offset and sort controls */}
+        {/* Section C: All Products Grid */}
         <AllProductsSection initialProducts={allProducts} />
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
