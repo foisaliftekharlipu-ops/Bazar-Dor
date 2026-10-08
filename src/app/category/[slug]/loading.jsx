@@ -1,6 +1,6 @@
 export default function CategoryLoading() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full space-y-6 animate-pulse">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full space-y-6 animate-pulse">
       {/* Category Header Skeleton */}
       <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200">
         <div className="h-8 w-48 bg-slate-200 rounded-lg mb-2" />
