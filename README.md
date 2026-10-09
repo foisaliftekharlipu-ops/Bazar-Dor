@@ -5,7 +5,7 @@
 ---
 
 ## 🌐 Live Application
-- **Live URL:** [https://bazar-dor.vercel.app](https://bazar-dor.vercel.app) *(or your deployed Vercel URL)*
+- **Live URL:** [https://bazar-dor-foisal1.vercel.app/](https://bazar-dor-foisal1.vercel.app/)
 
 ---
 
@@ -80,8 +80,8 @@ bazar-dor/
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/bazar-dor.git
-cd bazar-dor
+git clone https://github.com/foisaliftekharlipu-ops/Bazar-Dor.git
+cd Bazar-Dor/bazar-dor
 ```
 
 ### 2. Install dependencies
